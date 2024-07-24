@@ -1,13 +1,83 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { FaShoppingCart } from 'react-icons/fa';
 import logo from '../../images/JD LOGO.png';
 
-const Navbar = () => {
+const Navbar = ({ openModel }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [user, setUser] = useState(null);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [loginMessage, setLoginMessage] = useState('');
+  const [isRefreshed, setIsRefreshed] = useState(false); // New state to track refresh
+
+  useEffect(() => {
+    // Fetch user data from localStorage on component mount
+    const storedUser = JSON.parse(localStorage.getItem('user'));
+    if (storedUser) {
+      setUser(storedUser);
+      // Show welcome message if user exists
+      const now = new Date();
+      const lastLogin = localStorage.getItem('lastLogin');
+      if (lastLogin) {
+        const lastLoginDate = new Date(lastLogin);
+        if (now - lastLoginDate < 24 * 60 * 60 * 1000) { // within 24 hours
+          setLoginMessage(`Welcome back, ${storedUser.name}!`);
+        } else {
+          setLoginMessage(`Welcome, ${storedUser.name}!`);
+        }
+      } else {
+        setLoginMessage(`Welcome, ${storedUser.name}!`);
+      }
+      localStorage.setItem('lastLogin', now.toISOString());
+    }
+  }, []);
+
+  useEffect(() => {
+    if (loginMessage) {
+      const timer = setTimeout(() => {
+        setLoginMessage('');
+        setIsRefreshed(true); // Set isRefreshed to true after the message disappears
+      }, 3000); // Show message for 3 seconds
+      return () => clearTimeout(timer);
+    }
+  }, [loginMessage]);
+
+  const cartItems = useSelector(state => state.cart.cartItems);
+
+  // Calculate total price safely
+  const getTotalPrice = (items) => {
+    if (!Array.isArray(items)) {
+      return 0;
+    }
+    return items.reduce((acc, item) => {
+      const price = parseFloat(item.price);
+      const quantity = parseInt(item.quantity, 10);
+      if (!isNaN(price) && !isNaN(quantity)) {
+        return acc + price * quantity;
+      }
+      return acc;
+    }, 0);
+  };
+
+  const totalPrice = getTotalPrice(cartItems);
+  const totalItems = cartItems.reduce((acc, item) => acc + item.quantity, 0);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('user');
+    localStorage.removeItem('lastLogin');
+    setUser(null);
+    setDropdownOpen(false);
+  };
+
+  const handleLoginClick = () => {
+    if (openModel) {
+      openModel(); // Call the function passed as prop to open the login model
+    }
   };
 
   return (
@@ -47,14 +117,69 @@ const Navbar = () => {
           <Link to="/contact" className="text-black hover:text-gray-400 font-bold md:ml-16">
             Contact
           </Link>
+          {user ? (
+            <div className="relative">
+              <div 
+                className="flex items-center cursor-pointer" 
+                onClick={() => setDropdownOpen(!dropdownOpen)}
+                onMouseEnter={() => setDropdownOpen(true)}
+                // onMouseLeave={() => setDropdownOpen(true)}
+              >
+                <img 
+                  src="https://via.placeholder.com/30" 
+                  alt="Avatar" 
+                  className="w-8 h-8 rounded-full z-10" 
+                />
+                <span className="ml-2 text-black">{user.name}</span>
+              </div>
+              {dropdownOpen && (
+                <div className="absolute right-0 mt-2 bg-white border rounded shadow-lg w-48 z-20">
+                  <Link 
+                    to="/orders"
+                    className="w-full text-left px-4 py-2 hover:bg-gray-100"
+                    onClick={() => setDropdownOpen(false)}
+                  >
+                    Your Orders
+                  </Link>
+                  <Link 
+                    to="/order-history"
+                    className="w-full text-left px-4 py-2 hover:bg-gray-100"
+                    onClick={() => setDropdownOpen(false)}
+                  >
+                    Order History
+                  </Link>
+                  <button 
+                    className="w-full text-left px-4 py-2 text-red-500 hover:bg-gray-100"
+                    onClick={handleLogout}
+                  >
+                    Logout
+                  </button>
+                </div>
+              )}
+            </div>
+          ) : (
+            <a href="#!" className="text-black hover:text-gray-400 font-bold md:ml-16" onClick={handleLoginClick}>
+              Login
+            </a>
+          )}
         </div>
-        <div className="hidden md:flex items-center font-bold">
+        <div className="hidden md:flex items-center font-bold relative">
           <Link to="/cart" className="text-black hover:text-gray-400 flex items-center">
             <FaShoppingCart className="mr-2" />
-            Cart
+            Cart ({totalItems}) - ${totalPrice.toFixed(2)}
+            {totalItems > 0 && (
+              <span className="bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center absolute -top-2 -right-2">
+                {totalItems}
+              </span>
+            )}
           </Link>
         </div>
       </div>
+      {loginMessage && !isRefreshed && (
+        <div className="fixed bottom-0 right-0 mb-4 mr-4 p-3 bg-green-500 text-white rounded-lg shadow-lg">
+          {loginMessage}
+        </div>
+      )}
     </nav>
   );
 };
