@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import banner2 from "../../images/Artboard 1 1 (1).png";
+import banner2 from "../../images/Artboard 1.png";
 import banner3 from "../../images/Artboard 3 smart storage.png";
 import banner4 from "../../images/Artboard 5.png";
 import Slider from "react-slick";
@@ -8,6 +8,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Link } from 'react-router-dom';
 import Subscribe from '../../component/banner/Subscribe';
+import './Product.css';
 // import './Topproduct.css'
 
 

@@ -1,12 +1,12 @@
 import React from 'react';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
-import image1 from '../../images/Artboard 6 (1).png';
-import image2 from '../../images/Artboard 3 smart storage (1).png';
-import image3 from '../../images/Artboard 5.png';
-import image4 from '../../images/Artboard 1 1 (2).png';
-import image5 from '../../images/Artboard 3 smart storage (1).png';
-import image6 from '../../images/Artboard 5.png';
+import image1 from '../../images/1.png';
+import image2 from '../../images/2.png';
+import image3 from '../../images/3.png';
+import image4 from '../../images/1.png';
+import image5 from '../../images/2.png';
+import image6 from '../../images/3.png';
 import './Banner.css';
 import Slider from "react-slick";
 
