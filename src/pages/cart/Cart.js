@@ -100,17 +100,17 @@ function Cart({ openLoginModel, openAddressModel }) {
                     </div>
                     <div className="mt-4 text-right">
                         <div className="text-xl">
-                            <span className="font-bold">Subtotal:</span> ${subtotal.toFixed(2)}
+                            <span className="font-bold">Subtotal:</span> ₹{subtotal.toFixed(2)}
                         </div>
                         <div className="text-xl">
-                            <span className="font-bold">GST (18%):</span> ${gst.toFixed(2)}
+                            <span className="font-bold">GST (18%):</span> ₹{gst.toFixed(2)}
                         </div>
                         <div className="text-2xl font-bold">
-                            <span>Total:</span> ${totalBill.toFixed(2)}
+                            <span>Total:</span> ₹{totalBill.toFixed(2)}
                         </div>
                         <button 
                             onClick={checkOut} 
-                            className="btn btn-primary mt-4"
+                            className="btn bg-rose-500 rounded-lg text-white px-2 py-4 mt-4"
                         >
                             Checkout
                         </button>

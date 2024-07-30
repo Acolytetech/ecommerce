@@ -166,7 +166,7 @@ const Navbar = ({ openModel }) => {
         <div className="hidden md:flex items-center font-bold relative">
           <Link to="/cart" className="text-black hover:text-gray-400 flex items-center">
             <FaShoppingCart className="mr-2" />
-            Cart ({totalItems}) - ${totalPrice.toFixed(2)}
+            Cart ({totalItems})
             {totalItems > 0 && (
               <span className="bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center absolute -top-2 -right-2">
                 {totalItems}
