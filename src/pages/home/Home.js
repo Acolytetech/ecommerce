@@ -11,9 +11,10 @@ function Home() {
   return (
     <div>
         <Banner/>
+      <Card/>
+
       <Topproduct/>
 
-      <Card/>
       
       <Testimonials/>
       <Whovr/>

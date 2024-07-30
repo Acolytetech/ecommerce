@@ -1,20 +1,19 @@
-// src/components/Sidebar.js
+// src/pages/history/Sidebar.js
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 const Sidebar = ({ activeSection, setActiveSection }) => {
   return (
-    <div className="bg-gray-800 text-white w-64 min-h-screen p-4">
-      <h2 className="text-2xl font-bold mb-4">Account</h2>
+    <div className="w-1/4 bg-gray-200 p-4 h-screen overflow-y-auto">
+      <h2 className="text-xl font-bold mb-4">Menu</h2>
       <ul>
         <li
-          className={`cursor-pointer mb-2 p-2 ${activeSection === 'orders' ? 'bg-gray-600' : ''}`}
+          className={`cursor-pointer p-2 ${activeSection === 'orders' ? 'bg-blue-500 text-white' : 'bg-white text-black'}`}
           onClick={() => setActiveSection('orders')}
         >
           Your Orders
         </li>
         <li
-          className={`cursor-pointer mb-2 p-2 ${activeSection === 'address' ? 'bg-gray-600' : ''}`}
+          className={`cursor-pointer p-2 ${activeSection === 'address' ? 'bg-blue-500 text-white' : 'bg-white text-black'}`}
           onClick={() => setActiveSection('address')}
         >
           Address

@@ -4,9 +4,12 @@ import banner2 from "../../images/Artboard 1 1 (1).png";
 import banner3 from "../../images/Artboard 3 smart storage.png";
 import banner4 from "../../images/Artboard 5.png";
 import Slider from "react-slick";
-import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Link } from 'react-router-dom';
+import Subscribe from '../../component/banner/Subscribe';
+// import './Topproduct.css'
+
 
 const Product = () => {
   const [products, setProducts] = useState([]);
@@ -23,7 +26,7 @@ const Product = () => {
     };
 
     fetchProducts();
-  }, []); 
+  }, []);
 
   const settings = {
     dots: true,
@@ -52,28 +55,31 @@ const Product = () => {
         </Slider>
       </div>
 
-     <div className='m-auto text-center p-10 mt-10'>
-     <h1 className='text-2xl  text-center font-bold text-black'>Our Products</h1>
-     <p className='text-green-500 font-semibold text-center  mt-2'>Brighten Your Home, Simplify Your Life</p>
-     </div>
+      <div className='m-auto text-center p-10 mt-10'>
+        <h1 className='text-2xl  text-center font-bold text-black'>Our Products</h1>
+        <p className='text-green-700 font-semibold text-center  mt-2'>Brighten Your Home, Simplify Your Life</p>
+      </div>
 
       {/* Product Grid */}
-      <div className="w-full">
-        <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 py-5">
-          {products.map((product) => (
-            <div key={product._id} className="w-5/6 bg-white shadow-lg rounded-lg overflow-hidden" style={{height:"550px", marginLeft:'190px'}}>
+      <div className="top-product-container">
+        
+      {products.map((product) => (
+            <div key={product._id} className="product-card">
               <img src={product.mainImage} alt={product.name} className="w-full h-1/2 m-auto" />
               <div className="p-4">
-                <h2 className="text-sm font-semibold">{product.name}</h2>
-                <p className="mt-2">Price: {product.price}</p>
-                <p className="mb-5">Rating: {product.ratings}</p>
+                <h2 className="product-name">{product.name}</h2>
+                <p className="mt-2 text-2xl"><span className='text-rose-600 font-bold text-2xl'>Price :</span> {product.price}₹</p>
+                <p className="mb-5 text-1xl text-black-400 pt-2 font-bold">Rating:  {product.ratings}</p>
 
                 <Link to={`/product/${product._id}`} className="mt-4 bg-rose-500 text-white px-4 py-2 rounded hover:bg-rose-600">Add to Cart</Link>
               </div>
             </div>
           ))}
         </div>
-      </div> 
+      
+
+      <Subscribe />
+
     </>
   );
 };

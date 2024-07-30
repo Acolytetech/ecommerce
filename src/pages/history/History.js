@@ -1,7 +1,8 @@
 // src/pages/HistoryPage.js
 import React, { useState, useEffect } from 'react';
-import Sidebar from '../../pages/history/History';
-import { fetchOrders, fetchAddress } from '../../component/api'; // You need to create these API functions
+import Sidebar from '../../pages/history/Sidebar';
+import Profile from '../../pages/history/Profile';
+import { fetchOrders, fetchAddress } from '../../component/api'; // Ensure these API functions are implemented
 
 const History = () => {
   const [activeSection, setActiveSection] = useState('orders');
@@ -10,29 +11,21 @@ const History = () => {
 
   useEffect(() => {
     if (activeSection === 'orders') {
-      fetchOrders().then(data => setOrders(data)).catch(err => console.error(err));
+      fetchOrders()
+        .then(data => setOrders(data))
+        .catch(err => console.error(err));
     } else if (activeSection === 'address') {
-      fetchAddress().then(data => setAddress(data)).catch(err => console.error(err));
+      fetchAddress()
+        .then(data => setAddress(data))
+        .catch(err => console.error(err));
     }
   }, [activeSection]);
-
-  const handleLogout = () => {
-    // Clear orders and address from state (and possibly from local storage or API)
-    setOrders([]);
-    setAddress('');
-    // Perform additional logout operations if needed
-  };
 
   return (
     <div className="flex">
       <Sidebar activeSection={activeSection} setActiveSection={setActiveSection} />
       <div className="flex-1 p-6">
-        <button
-          onClick={handleLogout}
-          className="bg-red-500 text-white px-4 py-2 rounded mb-4"
-        >
-          Logout
-        </button>
+        <Profile />
         {activeSection === 'orders' && (
           <div>
             <h2 className="text-2xl font-bold mb-4">Your Orders</h2>

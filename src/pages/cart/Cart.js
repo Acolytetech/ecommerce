@@ -71,7 +71,7 @@ function Cart({ openLoginModel, openAddressModel }) {
                                 {cartItems.map((item, index) => (
                                     <tr key={index} className="text-center">
                                         <td className="py-2 px-4 border-b">
-                                            <img src={item.image} alt={item.name} className="w-20 h-20 object-cover"/>
+                                            <img src={item.mainImage} alt={item.name} className="w-20 h-20 object-cover"/>
                                         </td>
                                         <td className="py-2 px-4 border-b">{item.name}</td>
                                         <td className="py-2 px-4 border-b">

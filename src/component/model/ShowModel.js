@@ -3,6 +3,7 @@ import { AiOutlineClose } from 'react-icons/ai';
 import axios from 'axios';
 import './Model.css';
 import { useNavigate } from 'react-router-dom';
+import ForgotModel from './ForgotModel'; 
 
 function ShowModel({ closeModel }) {
     const navigate = useNavigate();
@@ -16,8 +17,11 @@ function ShowModel({ closeModel }) {
         otp: '',
         isLogin: true,
         otpSent: false,
-        otpVerified: false
+        otpVerified: false,
+        forgotPassword: false
     });
+
+    const [showForgotModel, setShowForgotModel] = useState(false); 
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -37,7 +41,6 @@ function ShowModel({ closeModel }) {
             })
             .then(result => {
                 if (result.data === "Success") {
-                    // Save user info to localStorage
                     localStorage.setItem('user', JSON.stringify({
                         name: formData.name,
                         email: formData.email,
@@ -87,7 +90,6 @@ function ShowModel({ closeModel }) {
         })
         .then(result => {
             if (result.data.message === "OTP verified successfully") {
-                // Save user info to localStorage
                 localStorage.setItem('user', JSON.stringify({
                     name: formData.name,
                     email: formData.email,
@@ -113,12 +115,13 @@ function ShowModel({ closeModel }) {
             ...prevData,
             isLogin: !prevData.isLogin,
             otpSent: false,
-            otpVerified: false
+            otpVerified: false,
+            forgotPassword: false
         }));
     };
 
     const handleForgotPassword = () => {
-        console.log('Forgot Password');
+        setShowForgotModel(true); // Show ForgotModel
     };
 
     return (
@@ -131,7 +134,7 @@ function ShowModel({ closeModel }) {
                 <h2 className="text-2xl font-bold text-center mb-4">
                     {formData.isLogin ? 'Login' : (formData.otpSent ? 'Verify OTP' : 'Signup')}
                 </h2>
-                {!formData.otpSent ? (
+                {!formData.otpSent && !formData.forgotPassword ? (
                     <form onSubmit={handleSubmit} className="space-y-4">
                         {!formData.isLogin && !formData.otpVerified && (
                             <>
@@ -194,19 +197,23 @@ function ShowModel({ closeModel }) {
                                 />
                             </label>
                         )}
-                        {formData.isLogin && (
-                            <button
-                                type="button"
-                                className="text-blue-500 underline"
-                                onClick={handleForgotPassword}
-                            >
-                                Forgot Password?
-                            </button>
+                        {formData.isLogin && !formData.forgotPassword && (
+                            <>
+                                <button
+                                    type="button"
+                                    className="text-blue-500 underline"
+                                    onClick={handleForgotPassword}
+                                >
+                                    Forgot Password?
+                                </button>
+                                <button type="submit" className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600">
+                                    Login
+                                </button>
+                            </>
                         )}
-                        <button type="submit" className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600">
-                            {formData.isLogin ? 'Login' : (formData.otpVerified ? 'Signup' : 'Send OTP')}
-                        </button>
                     </form>
+                ) : formData.forgotPassword ? (
+                    <ForgotModel closeForgotPasswordModel={() => setShowForgotModel(false)} />
                 ) : (
                     <div className="space-y-4">
                         <label className="block">
@@ -238,6 +245,9 @@ function ShowModel({ closeModel }) {
                     </button>
                 </p>
             </div>
+            {showForgotModel && (
+                <ForgotModel closeForgotPasswordModel={() => setShowForgotModel(false)} />
+            )}
         </div>
     );
 }

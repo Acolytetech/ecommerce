@@ -1,0 +1,145 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+/* mobile view responsive */
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+.tesimonial .flex-1{
+text-align: center;
+justify-content: center;
+}
+.whatsay-heading{
+    text-align: center;
+    /* margin: auto; */
+}
+.quote{
+    width: 100px;
+    height: 100px;
+    margin-top: -50px;
+    margin-right: 20px;
+
+}
+
+@media  screen and (max-width:500px) {
+  /* Custom styles for smaller screens */
+ *{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+ }
+ .tesimonial{
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    padding-bottom: 20px;
+ }
+ .whatsayimg{
+    width: fit-content;
+    height: 150px;
+    object-fit: contain;
+    scale: 1.7;
+    margin: 0px;
+    padding: 0px;
+ }
+  .whatsay-heading{
+    font-size: 2vh;
+    font-weight: 900;
+
+    width: 100%;
+    /* outline: auto; */
+ }
+
+    .quote{
+        width: 50px;
+        height: 70px;
+        margin-top: -30px;
+        margin-left:-20px;
+        margin-right: 0px;
+        
+    
+    }
+ }
+@media  screen and (min-width:501px) and (max-width:1024px) {
+  .top-product-container {
+    max-width:100%;
+    /* font-family: 'Roboto', sans-serif; */
+    padding: 20px;
+    /* padding-left: 200px; */
+    
+    justify-content: space-between;
+    display: flex;
+    
+    
+  }
+  
+  
+  
+  .product-card {
+    width: 30%;
+    height: fit-content;
+    box-shadow:#e9eaed 1px 1px 10px 10px;
+    margin: auto;
+    
+  
+    
+  }
+  
+  .product-card:hover img {
+    transform: scale(1.05);
+  }
+  
+  .product-card img {
+    width: 70%;
+    height: 300px;
+    object-fit:contain;
+  
+  }
+  
+  .product-card h2 {
+    
+    font-size:0.8rem;
+    font-weight:500;
+    text-align: justify;
+    font-family:Arial, Helvetica, sans-serif;
+  }
+  
+  .product-info h2 {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #2D3748;
+  }
+  
+  .product-info p {
+    font-size: 0.875rem;
+    color: #4A5568;
+    margin-top: 0.5rem;
+  }
+  
+  .product-info .price {
+    font-weight: 700;
+    color: #E53E3E;
+  }
+  
+  .product-info .rating {
+    font-size: 0.875rem;
+    color: #E53E3E;
+    margin-top: 0.5rem;
+  }
+  
+  .add-to-cart {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    background-color: #E53E3E;
+    color: #FFF;
+    border-radius: 0.25rem;
+    text-align: center;
+    transition: background-color 0.3s;
+  }
+  
+  .add-to-cart:hover {
+    background-color: #C53030;
+  }
+}  

@@ -1,0 +1,218 @@
+/* Container for the top products section */
+.topmaincontiner {
+    max-width: 1200px;
+    margin: auto;
+    text-align: center;
+   
+    
+  }
+  
+  /* Title and description styling */
+  .topmaincontiner h1 {
+    font-size: 2rem;
+    padding-left: 10px;
+    text-align: left;
+    font-weight: bold;
+    color: black;
+    text-align: center;
+    padding: 50px;
+  }
+  
+  .topmaincontiner p {
+    color: #374151; /* Tailwind's black-500 */
+    font-weight: 600;
+    text-align: left;
+    padding-left: 10px;
+    font-size: rem;
+    margin-top: 0.5rem;
+  }
+  
+  /* Grid container for products */
+  .top-product-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 100px;
+    padding: 100px;
+    padding-top: 0px;
+    padding-bottom: 20px;
+    margin-top: -20px;
+    width: 100%;
+  }
+
+  
+  /* Product card styling */
+  .product-card {
+    width: 105%;
+    height:500px;
+    background-color: #ffffff; /* White */
+    /* border: 1px solid #e5e7eb; Tailwind's gray-200 */
+    border-radius: 8px;
+    box-shadow: 1px 1px 10px 1px #f3f0f0;
+    overflow: hidden;
+    /* position: relative; */
+    transition: transform 0.3s ease-in-out;
+    margin-left:0px;
+    
+  }
+  
+  .product-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .product-card img {
+    width: 100%;
+    height: 200px;
+    object-fit:contain;
+    padding: 10px;
+  }
+  
+  .product-card .p-4 {
+    padding: 12px;
+    position: relative;
+  }
+  
+  /* Product name styling */
+  .product-name {
+    font-size:1rem;
+    font-weight: 500;
+    color: #1f2937; /* Tailwind's gray-800 */
+  }
+  
+  /* Price and rating styling */
+  .product-card p {
+    margin-top: 8px;
+    font-size: 1rem;
+    color: #090909; /* Tailwind's gray-400 */
+    font-weight: 500;
+  }
+  
+  .product-card p span {
+    /* color: #e11d48; Tailwind's rose-600 */
+    font-weight: 500;
+    font-size: 1.25rem;
+  }
+  
+  .product-card .text-2xl {
+    font-size: 1.5rem;
+  }
+  
+  .product-card .text-1xl {
+    font-size: 1.25rem;
+    color: #0a0a0a; /* Tailwind's gray-400 */
+  }
+  
+  /* Button styling */
+  .product-card a {
+
+      position: absolute;
+      top: 55%;
+      left: 57%;
+      display: inline-block;
+      /* margin-top: 0px; */
+      background-color: #f43f5e;
+      color: #ffffff;
+      padding: 8px 16px;
+      border-radius: 4px;
+      text-decoration: none;
+      font-size: 1rem;
+      font-weight: 500;
+      transition: background-color 0.3s ease-in-out;
+  }
+  
+  .product-card a:hover {
+    background-color: #e11d48; 
+    color: #090909;
+  }
+   
+  @media (max-width:500px) {
+    .top-product-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 50px;
+        padding: 0px;
+        padding-bottom: 100px;
+    
+        margin:auto;
+      }
+       /* Product card styling */
+  .product-card {
+    width: 90%;
+    height: fit-content;
+    background-color: #ffffff; /* White */
+    border: 1px solid #e5e7eb; /* Tailwind's gray-200 */
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out;
+    margin: auto;
+    
+  }
+  
+  .product-card:hover {
+    transform: translateY(-0px);
+  }
+  
+  .product-card img {
+    width: 100%;
+    height: 200px;
+    object-fit:contain;
+    padding: 10px;
+  }
+  .product-card:hover img {
+  scale: 1.2;
+}
+  
+  .product-card .p-4 {
+    padding: 16px;
+  }
+  
+  /* Product name styling */
+  .product-name {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #1f2937; /* Tailwind's gray-800 */
+  }
+  
+  /* Price and rating styling */
+  .product-card p {
+    margin-top: 8px;
+    font-size: 1rem;
+    color: #6b7280; /* Tailwind's gray-400 */
+  }
+  
+  .product-card p span {
+    color: #e11d48; /* Tailwind's rose-600 */
+    font-weight: bold;
+    font-size: 1.25rem;
+  }
+  
+  .product-card .text-2xl {
+    font-size: 1.5rem;
+  }
+  
+  .product-card .text-1xl {
+    font-size: 1.25rem;
+    color: #9ca3af; /* Tailwind's gray-400 */
+  }
+  
+  /* Button styling */
+  .product-card a {
+    display: inline-block;
+    margin-top: 16px;
+    background-color: #f43f5e; /* Tailwind's rose-500 */
+    color: #ffffff;
+    padding: 8px 16px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: background-color 0.3s ease-in-out;
+  }
+  
+  .product-card a:hover {
+    background-color: #e11d48; /* Tailwind's rose-600 */
+    color: #090909;
+  }
+    
+  }
+
+  

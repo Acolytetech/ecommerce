@@ -1,16 +1,17 @@
 import React from 'react';
 import image from '../../images/Artboard 6 (1).png';
+import './Whovr.css'; // Import the CSS file
 
 function Whovr() {
   return (
-    <div className='container-fluid p-12' style={{ background: 'rgb(51 102 153 / 64%)' }}>
-      <h1 className='text-5xl text-white font-bold text-center m-auto'>Who We Are</h1>
-      <div className='w-full flex flex-col md:flex-row justify-between m-auto p-14'>
-        <div className='w-full md:w-1/3 mb-8 md:mb-0'>
-          <img src={image} alt='' className='mx-auto rounded-3xl' />
+    <div className='whovr-container'>
+      <div className='whovr-content'>
+        <div className='whovr-image'>
+          <img src={image} alt='Who We Are' />
         </div>
-        <div className='w-full md:w-2/3 text-center md:text-left md:pr-3'>
-          <p className='text-xl md:text-3xl ms-0 md:ms-20 text-white leading-loose'>
+        <div className='whovr-text'>
+          <h1 className='whovr-heading'>Who We Are?</h1>
+          <p className='whovr-paragraph text-white'>
             There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't
             look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.
           </p>

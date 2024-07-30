@@ -2,11 +2,11 @@ import React from 'react';
 import { FaMapMarkerAlt, FaPhoneAlt, FaEnvelope } from 'react-icons/fa';
 function Subscribe() {
   return (
-    <div className='container mx-auto p-12 '>
+    <div className='container mx-auto p-20 '>
       <h2 className='text-black text-2xl text-center mb-4'>
         Follow the latest trends and sales
       </h2>
-      <div className='flex flex-col md:flex-row justify-center items-center mb-6'>
+      <div className='flex flex-col md:flex-row justify-center items-center '>
         <input
           type='email'
           placeholder='Enter your email'
@@ -16,25 +16,22 @@ function Subscribe() {
           Subscribe
         </button>
       </div>
-      <div className='flex flex-col md:flex-row justify-around text-center text-black p-14'>
+      <div className='flex flex-col md:flex-row justify-around text-center text-black pt-10'>
         <div className='mb-4 md:mb-0'>
           <FaMapMarkerAlt className='text-3xl text-red-600 mx-auto' />
-          <div className='pt-1 pt-1 font-medium text-gray-500'>Find Us</div>
-          <p style={{padding:'10%'}} className='text-gray-500'>134, New street,
-          Jaipur, Rajasthan 302863</p>
+          <div className='pt-5 pt-1 font-medium text-gray-500'>Find Us</div>
+          <p style={{width:'250px'}} className='text-gray-500 '>Maa Khodal Industrial Area -3, Plot No. 10B, 11, Ravki Makhavad Road, Rajkot, Gujarat - 360004</p>
         </div>
         <div className='mb-4 md:mb-0'>
           <FaPhoneAlt className='text-3xl text-red-600 mx-auto' />
           
-          <div className='pt-1pt-1 font-medium text-gray-500'  >Call</div>
-          <p style={{paddingTop:'30px'}} className='text-gray-500'>+91 6394624982 <br/>
-          +91 8354026493</p>
+          <div className='pt-5 font-medium text-gray-500'  >Call</div>
+          <p style={{paddingTop:'30px'}} className='text-gray-500'>+91 9924276996 </p>
         </div>
         <div>
           <FaEnvelope className='text-3xl text-red-600 mx-auto' />
-          <div className='pt-1 font-medium text-gray-500'>Mail</div>
-          <p style={{padding:'10%'}} className='text-gray-500'>Contact@JD.com
-          Sales@JD.com</p>
+          <div className='pt-5 font-medium text-gray-500'>Mail</div>
+          <p style={{padding:'10%'}} className='text-gray-500'>jdmultipro@gmail.com</p>
         </div>
       </div>
     </div>
