@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { FaShoppingCart } from 'react-icons/fa';
-import logo from '../../images/JD LOGO.png';
+import logo from '../../images/logo.png';
 
 const Navbar = ({ openModel }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -84,7 +84,7 @@ const Navbar = ({ openModel }) => {
     <nav className="bg-white p-4 px-6 md:px-20">
       <div className="container mx-auto flex justify-between items-center">
         <Link to="/" className="text-white text-2xl font-bold">
-          <img src={logo} alt="Logo" className="h-8 w-auto" />
+          <img src={logo} alt="Logo" className="h-16 w-auto" />
         </Link>
         <div className="flex items-center md:hidden">
           <button onClick={toggleMenu} className="text-black focus:outline-none">

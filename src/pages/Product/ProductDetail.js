@@ -22,10 +22,14 @@ const ProductDetails = () => {
       .then(response => {
         const data = response.data;
         console.log('API response:', data);
-        setProduct(data);
-        setSelectedImage(data.mainImage);
-        setSelectedSize(data.sizeOptions[0].size);
-        setSelectedPrice(data.sizeOptions[0].price);
+        if (data) {
+          setProduct(data);
+          setSelectedImage(data.mainImage || '');
+          if (data.sizeOptions && data.sizeOptions.length > 0) {
+            setSelectedSize(data.sizeOptions[0].size || '');
+            setSelectedPrice(data.sizeOptions[0].price || 0);
+          }
+        }
       })
       .catch(error => {
         console.error('Error fetching product details:', error);
@@ -56,6 +60,8 @@ const ProductDetails = () => {
   if (!product) {
     return <p>Loading...</p>;
   }
+
+  console.log('Product details:', product);
 
   return (
     <div className="container mx-auto p-4 flex flex-wrap items-start">
@@ -88,7 +94,7 @@ const ProductDetails = () => {
         <hr />
         <p className="mt-2"><span className='font-bold'>Size:</span></p>
         <div className="flex mt-2">
-          {product.sizeOptions.map(option => (
+          {product.sizeOptions && product.sizeOptions.map(option => (
             <button
               key={option._id}
               className={`px-4 py-2 mr-2 border ${selectedSize === option.size ? 'bg-blue-500 text-white' : 'bg-white text-black'}`}
@@ -109,17 +115,21 @@ const ProductDetails = () => {
       {/* Additional Images Grid */}
       <div className="w-full hidden md:block mt-4" style= {{marginTop:'-280px'}}>
         <div className="flex gap-1">
-          {product.additionalImages.map((image, index) => (
-            <div key={index} className="mx-4">
-              <img
-                src={image}
-                alt={`Image ${index + 1}`}
-                className="object-contain w-24 h-24 cursor-pointer"
-                onClick={() => handleImageClick(image)}
-                onError={(e) => { e.target.onerror = null; e.target.src = "fallback_image_url"; }}
-              />
-            </div>
-          ))}
+          {product.additionalImages && product.additionalImages.length > 0 ? (
+            product.additionalImages.map((image, index) => (
+              <div key={index} className="mx-4">
+                <img
+                  src={image}
+                  alt={`Image ${index + 1}`}
+                  className="object-contain w-24 h-24 cursor-pointer"
+                  onClick={() => handleImageClick(image)}
+                  onError={(e) => { e.target.onerror = null; e.target.src = "fallback_image_url"; }}
+                />
+              </div>
+            ))
+          ) : (
+            <p>No additional images available.</p>
+          )}
         </div>
       </div>
     </div>
