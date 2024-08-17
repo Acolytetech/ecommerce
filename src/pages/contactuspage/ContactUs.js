@@ -33,13 +33,13 @@
 
 
 import React from 'react';
-import './Contacts.css';
+import './Contact.css';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import slide1 from '../../images/contact-us-communication-support-service-assistance-concept.jpg';
 import slide2 from '../../images/contact-us-customer-support-enquiry-hotline-concept.jpg';
 
-const Contacts = () => {
+const ContactUs = () => {
 
   const [result, setResult] = React.useState("");
 
@@ -94,74 +94,29 @@ const Contacts = () => {
         </div>
 
         <div className="flex flex-wrap -mx-4">
-          <div className="w-full md:w-1/2 lg:w-1/3 px-4 mb-8">
-            <div className="bg-white rounded-lg shadow-lg p-6 text-center">
+          <div className="w-full md:w-1/2 lg:w-1/3 px-4 mb-8" >
+            <div className="bg-white rounded-lg shadow-lg p-6 text-center" style={{height:'200px'}}>
               <h3 className="text-xl font-semibold mb-2">Our Address</h3>
-              <p className="text-gray-600">1234 Street Name, City, State,</p>
+              <p className="text-gray-600">Maa Khodal Industrial Area -3, Plot No. 10B, 11, Ravki Makhavad Road, Rajkot, Gujarat - 360004</p>
             </div>
           </div>
           <div className="w-full md:w-1/2 lg:w-1/3 px-4 mb-8">
-            <div className="bg-white rounded-lg shadow-lg p-6 text-center">
+            <div className="bg-white rounded-lg shadow-lg p-6 text-center"  style={{height:'200px'}}>
               <h3 className="text-xl font-semibold mb-2">Email Us</h3>
-              <p className="text-gray-600">info@example.com</p>
+              <p className="text-gray-600">jdmultipro@gmail.com</p>
             </div>
           </div>
-          <div className="w-full md:w-1/2 lg:w-1/3 px-4 mb-8">
-            <div className="bg-white rounded-lg shadow-lg p-6 text-center">
+          <div className="w-full md:w-1/2 lg:w-1/3 px-4 mb-8  ">
+            <div className="bg-white rounded-lg shadow-lg p-6 text-center " style={{height:'200px'}}>
               <h3 className="text-xl font-semibold mb-2">Call Us</h3>
-              <p className="text-gray-600">(123) 456-7890</p>
+              <p className="text-gray-600">+91 9924276996</p>
             </div>
           </div>
         </div>
-<div className="w-full sendmessage">
-        <div className=" p-8 rounded-lg shadow-md w-full max-w-md mx-auto  " style={{backgroundColor:'rgb(100,100,100,0.7)'}}>
-          <h3 className="text-2xl text-white font-bold font-semibold mb-6 underline">Send Us a Message</h3>
-          <form onSubmit={onSubmit}>
-          {/* <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE"/> */}
-            <div className="mb-4">
-              <label className="block text-white font-bold mb-2" htmlFor="name">Name</label>
-              <input
-                type="text"
-                id="name"
-                className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
-                placeholder="Enter your name"
-                required
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700 mb-2 text-white font-bold" htmlFor="email">Email</label>
-              <input
-                type="email"
-                id="email"
-                className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
-                placeholder="Enter your email"
-                required
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700 mb-2 text-white font-bold" htmlFor="message">Message</label>
-              <textarea
-                id="message"
-                className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
-                placeholder="Enter your message"
-                rows="5"
-                required
-              ></textarea>
-            </div>
-            <button
-              type="submit"
-              className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
-            >
-              Send Message
-            </button>
-          </form>
-          <span>{result}</span>
-        </div>
-        </div>
+
       </div>
     </>
   );
 };
 
-export default Contacts;
-
+export default ContactUs;

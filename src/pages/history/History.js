@@ -1,4 +1,5 @@
 // src/pages/HistoryPage.js
+
 import React, { useState, useEffect } from 'react';
 import Sidebar from '../../pages/history/Sidebar';
 import Profile from '../../pages/history/Profile';
@@ -11,9 +12,9 @@ const History = () => {
 
   useEffect(() => {
     if (activeSection === 'orders') {
-      fetchOrders()
-        .then(data => setOrders(data))
-        .catch(err => console.error(err));
+      // Fetch orders from local storage or API
+      const orderHistory = JSON.parse(localStorage.getItem('orderHistory')) || [];
+      setOrders(orderHistory);
     } else if (activeSection === 'address') {
       fetchAddress()
         .then(data => setAddress(data))
@@ -28,17 +29,18 @@ const History = () => {
         <Profile />
         {activeSection === 'orders' && (
           <div>
-            <h2 className="text-2xl font-bold mb-4">Your Orders</h2>
+            <h2 className="text-2xl font-bold mb-4">Order History</h2>
             {orders.length > 0 ? (
-              <ul>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {orders.map((order, index) => (
-                  <li key={index} className="border-b py-2">
-                    <p><strong>Order ID:</strong> {order.id}</p>
-                    <p><strong>Item:</strong> {order.item}</p>
-                    <p><strong>Quantity:</strong> {order.quantity}</p>
-                  </li>
+                  <div key={index} className="bg-white p-4 rounded shadow-md">
+                    <h3 className="text-xl font-bold">Order #{index + 1}</h3>
+                    <p><strong>Date:</strong> {new Date(order.date).toLocaleDateString()}</p>
+                    <p><strong>Status:</strong> {order.status}</p>
+                    {/* Add more details about the order if needed */}
+                  </div>
                 ))}
-              </ul>
+              </div>
             ) : (
               <p>No orders found.</p>
             )}

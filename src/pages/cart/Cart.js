@@ -1,19 +1,20 @@
 // src/pages/cart/Cart.js
 
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { removeItem, updateItemQuantity } from '../../utils/cartSlice';
 
 function Cart({ openLoginModel, openAddressModel }) {
     const dispatch = useDispatch();
     const cartItems = useSelector(state => state.cart.cartItems);
+    const navigate = useNavigate();
 
-    let subtotal = 0;
-    cartItems.forEach(item => {
-        subtotal += item.price * item.quantity;
-    });
+    const calculateSubtotal = () => {
+        return cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
+    };
 
+    const subtotal = calculateSubtotal();
     const gstRate = 0.18;
     const gst = subtotal * gstRate;
     const totalBill = subtotal + gst;
@@ -39,7 +40,7 @@ function Cart({ openLoginModel, openAddressModel }) {
 
     const checkOut = () => {
         if (user) {
-            openAddressModel();
+            navigate('/fake-payment'); // Redirect to the fake payment page
         } else {
             openLoginModel();
         }

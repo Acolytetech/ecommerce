@@ -4,6 +4,34 @@ import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { addItem } from '../../utils/cartSlice';
 
+// Utility function to render star ratings
+const renderStars = (rating) => {
+  const fullStars = Math.floor(rating);
+  const halfStar = rating % 1 !== 0;
+  const totalStars = 5;
+
+  let stars = [];
+  for (let i = 0; i < fullStars; i++) {
+    stars.push(<span key={`full-${i}`} className="text-yellow-500">&#9733;</span>);
+  }
+  if (halfStar) {
+    stars.push(<span key="half" className="text-yellow-500">&#9733;</span>);
+  }
+  for (let i = fullStars + (halfStar ? 1 : 0); i < totalStars; i++) {
+    stars.push(<span key={`empty-${i}`} className="text-gray-300">&#9734;</span>);
+  }
+
+  return stars;
+};
+
+// Utility function to format product details
+const formatDetails = (details) => {
+  if (typeof details === 'object') {
+    return Object.entries(details).map(([key, value]) => `${key}: ${value}`).join(', ');
+  }
+  return details;
+};
+
 const ProductDetails = () => {
   const { productId } = useParams();
   const [product, setProduct] = useState(null);
@@ -18,7 +46,7 @@ const ProductDetails = () => {
 
     console.log('Fetching product details for productId:', productId);
 
-    axios.get(`https://jd-api.onrender.com/${productId}`)
+    axios.get(`https://jd-products1.onrender.com/products${productId}`)
       .then(response => {
         const data = response.data;
         console.log('API response:', data);
@@ -28,6 +56,8 @@ const ProductDetails = () => {
           if (data.sizeOptions && data.sizeOptions.length > 0) {
             setSelectedSize(data.sizeOptions[0].size || '');
             setSelectedPrice(data.sizeOptions[0].price || 0);
+          } else {
+            setSelectedPrice(data.price || 0); // Set default price if no size options
           }
         }
       })
@@ -80,7 +110,7 @@ const ProductDetails = () => {
       {/* Right Side - Product Details */}
       <div className="w-full md:w-1/2 lg:w-2/3 p-4">
         <h2 className="text-2xl font-bold">{product.name}</h2>
-        <p className="mt-2">Rating: {product.ratings}</p>
+        <p className="mt-2">Rating: {renderStars(product.rating)}</p>
         <hr />
         <div className='flex pt-8 pb-8 gap-48'>
           <p className="mt-2">Price: ₹{selectedPrice}</p>
@@ -92,34 +122,35 @@ const ProductDetails = () => {
           </button>
         </div>
         <hr />
-        <p className="mt-2"><span className='font-bold'>Size:</span></p>
-        <div className="flex mt-2">
-          {product.sizeOptions && product.sizeOptions.map(option => (
-            <button
-              key={option._id}
-              className={`px-4 py-2 mr-2 border ${selectedSize === option.size ? 'bg-blue-500 text-white' : 'bg-white text-black'}`}
-              onClick={() => handleSizeClick(option)}
-            >
-              {option.size}
-            </button>
-          ))}
-        </div>
+        {product.sizeOptions && product.sizeOptions.length > 0 && (
+          <>
+            <p className="mt-2"><span className='font-bold'>Size:</span></p>
+            <div className="flex mt-2">
+              {product.sizeOptions.map(option => (
+                <button
+                  key={option._id}
+                  className={`px-4 py-2 mr-2 border ${selectedSize === option.size ? 'bg-blue-500 text-white' : 'bg-white text-black'}`}
+                  onClick={() => handleSizeClick(option)}
+                >
+                  {option.size}
+                </button>
+              ))}
+            </div>
+          </>
+        )}
         <p className="mt-2"><span className='font-bold'>Material:</span> {product.material}</p>
-        <p className="mt-2"><span className='font-bold'>Number of Shelves:</span> {product.numberOfShelves}</p>
-        <p className="mt-2"><span className='font-bold'>Special Feature:</span> {product.specialFeature}</p>
-        <p className="mt-2"><span className='font-bold'>Product Dimensions:</span> {product.productDimensions}</p>
-        <hr />
-        <h3>About Product</h3>
+        <p className="mt-2"><span className='font-bold'>Size:</span> {product.size}</p>
+        {/* <p className="mt-2"><span className='font-bold'>Details:</span> {formatDetails(product.details)}</p> */}
       </div>
 
       {/* Additional Images Grid */}
-      <div className="w-full hidden md:block mt-4" style= {{marginTop:'-280px'}}>
-        <div className="flex gap-1">
+      <div className="w-full hidden md:block mt-4" style={{ marginTop: '-127px' }}>
+        <div className="flex ">
           {product.additionalImages && product.additionalImages.length > 0 ? (
             product.additionalImages.map((image, index) => (
-              <div key={index} className="mx-4">
+              <div key={index} className="">
                 <img
-                  src={image}
+                  src={image || 'fallback_image_url'} // Add fallback URL here
                   alt={`Image ${index + 1}`}
                   className="object-contain w-24 h-24 cursor-pointer"
                   onClick={() => handleImageClick(image)}
@@ -131,6 +162,23 @@ const ProductDetails = () => {
             <p>No additional images available.</p>
           )}
         </div>
+      </div>
+
+      {/* Reviews Section */}
+      <div className="w-full mt-8">
+        <h2 className="text-2xl font-bold">Reviews</h2>
+        {/* Ensure the reviews data is in the expected format */}
+        {product.reviews && product.reviews.length > 0 ? (
+          product.reviews.map((review) => (
+            <div key={review._id} className="review p-4 border-b">
+              <h4 className="font-semibold">{review.userId.name}</h4>
+              <p>Rating: {renderStars(review.rating)}</p>
+              <p>{review.comment}</p>
+            </div>
+          ))
+        ) : (
+          <p>No reviews available.</p>
+        )}
       </div>
     </div>
   );

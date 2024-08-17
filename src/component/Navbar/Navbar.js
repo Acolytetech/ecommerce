@@ -9,19 +9,17 @@ const Navbar = ({ openModel }) => {
   const [user, setUser] = useState(null);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [loginMessage, setLoginMessage] = useState('');
-  const [isRefreshed, setIsRefreshed] = useState(false); // New state to track refresh
+  const [isRefreshed, setIsRefreshed] = useState(false);
 
   useEffect(() => {
-    // Fetch user data from localStorage on component mount
     const storedUser = JSON.parse(localStorage.getItem('user'));
     if (storedUser) {
       setUser(storedUser);
-      // Show welcome message if user exists
       const now = new Date();
       const lastLogin = localStorage.getItem('lastLogin');
       if (lastLogin) {
         const lastLoginDate = new Date(lastLogin);
-        if (now - lastLoginDate < 24 * 60 * 60 * 1000) { // within 24 hours
+        if (now - lastLoginDate < 24 * 60 * 60 * 1000) {
           setLoginMessage(`Welcome back, ${storedUser.name}!`);
         } else {
           setLoginMessage(`Welcome, ${storedUser.name}!`);
@@ -37,15 +35,14 @@ const Navbar = ({ openModel }) => {
     if (loginMessage) {
       const timer = setTimeout(() => {
         setLoginMessage('');
-        setIsRefreshed(true); // Set isRefreshed to true after the message disappears
-      }, 3000); // Show message for 3 seconds
+        setIsRefreshed(true);
+      }, 3000);
       return () => clearTimeout(timer);
     }
   }, [loginMessage]);
 
   const cartItems = useSelector(state => state.cart.cartItems);
 
-  // Calculate total price safely
   const getTotalPrice = (items) => {
     if (!Array.isArray(items)) {
       return 0;
@@ -76,7 +73,7 @@ const Navbar = ({ openModel }) => {
 
   const handleLoginClick = () => {
     if (openModel) {
-      openModel(); // Call the function passed as prop to open the login model
+      openModel();
     }
   };
 
@@ -114,7 +111,7 @@ const Navbar = ({ openModel }) => {
           <Link to="/aboutus" className="text-black hover:text-gray-400 font-bold md:ml-16">
             About Us
           </Link>
-          <Link to="/contact" className="text-black hover:text-gray-400 font-bold md:ml-16">
+          <Link to="/contactus" className="text-black hover:text-gray-400 font-bold md:ml-16">
             Contact
           </Link>
           {user ? (
@@ -123,7 +120,6 @@ const Navbar = ({ openModel }) => {
                 className="flex items-center cursor-pointer" 
                 onClick={() => setDropdownOpen(!dropdownOpen)}
                 onMouseEnter={() => setDropdownOpen(true)}
-                // onMouseLeave={() => setDropdownOpen(true)}
               >
                 <img 
                   src="https://via.placeholder.com/30" 
@@ -134,20 +130,23 @@ const Navbar = ({ openModel }) => {
               </div>
               {dropdownOpen && (
                 <div className="absolute right-0 mt-2 bg-white border rounded shadow-lg w-48 z-20">
-                  <Link 
-                    to="/orders"
-                    className="w-full text-left px-4 py-2 hover:bg-gray-100"
-                    onClick={() => setDropdownOpen(false)}
-                  >
-                    Your Orders
-                  </Link>
-                  <Link 
-                    to="/order-history"
-                    className="w-full text-left px-4 py-2 hover:bg-gray-100"
-                    onClick={() => setDropdownOpen(false)}
-                  >
-                    Order History
-                  </Link>
+                  <div className="px-4 py-2">
+                    <Link 
+                      to="/orders"
+                      className="hover:bg-gray-100"
+                      onClick={() => setDropdownOpen(false)}
+                    >
+                      Your Orders
+                    </Link>
+                    {' / '}
+                    <Link 
+                      to="/order-history"
+                      className="hover:bg-gray-100"
+                      onClick={() => setDropdownOpen(false)}
+                    >
+                      Order History
+                    </Link>
+                  </div>
                   <button 
                     className="w-full text-left px-4 py-2 text-red-500 hover:bg-gray-100"
                     onClick={handleLogout}

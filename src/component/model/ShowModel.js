@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { AiOutlineClose } from 'react-icons/ai';
 import axios from 'axios';
 import './Model.css';
 import { useNavigate } from 'react-router-dom';
-import ForgotModel from './ForgotModel'; 
 
 function ShowModel({ closeModel }) {
     const navigate = useNavigate();
@@ -14,14 +13,17 @@ function ShowModel({ closeModel }) {
         phone: '',
         password: '',
         confirmPassword: '',
-        otp: '',
         isLogin: true,
-        otpSent: false,
-        otpVerified: false,
-        forgotPassword: false
     });
+    const [userName, setUserName] = useState('');
 
-    const [showForgotModel, setShowForgotModel] = useState(false); 
+    useEffect(() => {
+        // Check if there's a user in localStorage
+        const user = JSON.parse(localStorage.getItem('user'));
+        if (user) {
+            setUserName(user.name);
+        }
+    }, []);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -41,11 +43,13 @@ function ShowModel({ closeModel }) {
             })
             .then(result => {
                 if (result.data === "Success") {
+                    // Save user info to localStorage
                     localStorage.setItem('user', JSON.stringify({
                         name: formData.name,
                         email: formData.email,
                         phone: formData.phone
                     }));
+                    setUserName(formData.name); // Update the state with the user's name
                     closeModel();
                     navigate('/');
                 } else {
@@ -67,174 +71,121 @@ function ShowModel({ closeModel }) {
             })
             .then(result => {
                 if (result.data === "Signup Success") {
-                    sendOTP();
-                    setFormData(prevData => ({ ...prevData, otpSent: true }));
+                    // Save user info to localStorage
+                    localStorage.setItem('user', JSON.stringify({
+                        name: formData.name,
+                        email: formData.email,
+                        phone: formData.phone
+                    }));
+                    setUserName(formData.name); // Update the state with the user's name
+                    alert('Signup Success');
+                    closeModel();
+                    navigate('/');
                 }
             })
             .catch(err => console.log(err));
         }
     };
 
-    const sendOTP = () => {
-        axios.post('http://localhost:3001/send-otp', {
-            phone: formData.phone
-        })
-        .then(result => console.log('OTP Sent:', result))
-        .catch(err => console.log('Error sending OTP:', err));
-    };
-
-    const verifyOTP = () => {
-        axios.post('http://localhost:3001/verify-otp', {
-            phone: formData.phone,
-            otp: formData.otp
-        })
-        .then(result => {
-            if (result.data.message === "OTP verified successfully") {
-                localStorage.setItem('user', JSON.stringify({
-                    name: formData.name,
-                    email: formData.email,
-                    phone: formData.phone
-                }));
-                alert('OTP Verified Successfully');
-                setFormData(prevData => ({
-                    ...prevData,
-                    otpVerified: true,
-                    otpSent: false,
-                    otp: '',
-                    isLogin: true
-                }));
-            } else {
-                alert('Invalid OTP');
-            }
-        })
-        .catch(err => console.log('Error verifying OTP:', err));
-    };
-
     const toggleForm = () => {
         setFormData(prevData => ({
             ...prevData,
             isLogin: !prevData.isLogin,
-            otpSent: false,
-            otpVerified: false,
-            forgotPassword: false
         }));
     };
 
     const handleForgotPassword = () => {
-        setShowForgotModel(true); // Show ForgotModel
+        console.log('Forgot Password');
     };
 
     return (
-        <div className="fixed inset-0 flex items-center justify-center z-50 bg-gray-900 bg-opacity-50">
+        <div className="fixed inset-0 w-full overflow-scroll flex items-center justify-center z-50 bg-gray-900 bg-opacity-50">
             <div className="bg-white p-6 rounded-lg shadow-lg relative max-w-md w-full">
                 <AiOutlineClose
                     className="absolute top-4 right-4 text-2xl cursor-pointer"
                     onClick={closeModel}
                 />
                 <h2 className="text-2xl font-bold text-center mb-4">
-                    {formData.isLogin ? 'Login' : (formData.otpSent ? 'Verify OTP' : 'Signup')}
+                    {formData.isLogin ? 'Login' : 'Signup'}
                 </h2>
-                {!formData.otpSent && !formData.forgotPassword ? (
-                    <form onSubmit={handleSubmit} className="space-y-4">
-                        {!formData.isLogin && !formData.otpVerified && (
-                            <>
-                                <label className="block">
-                                    Name:
-                                    <input
-                                        type="text"
-                                        name="name"
-                                        value={formData.name}
-                                        onChange={handleChange}
-                                        className="w-full mt-1 p-2 border border-gray-300 rounded"
-                                        required
-                                    />
-                                </label>
-                                <label className="block">
-                                    Phone:
-                                    <input
-                                        type="text"
-                                        name="phone"
-                                        value={formData.phone}
-                                        onChange={handleChange}
-                                        className="w-full mt-1 p-2 border border-gray-300 rounded"
-                                        required
-                                    />
-                                </label>
-                            </>
-                        )}
-                        <label className="block">
-                            Email:
-                            <input
-                                type="email"
-                                name="email"
-                                value={formData.email}
-                                onChange={handleChange}
-                                className="w-full mt-1 p-2 border border-gray-300 rounded"
-                                required
-                            />
-                        </label>
-                        <label className="block">
-                            Password:
-                            <input
-                                type="password"
-                                name="password"
-                                value={formData.password}
-                                onChange={handleChange}
-                                className="w-full mt-1 p-2 border border-gray-300 rounded"
-                                required
-                            />
-                        </label>
-                        {!formData.isLogin && !formData.otpVerified && (
+                {userName && (
+                    <p className="text-center mb-4">Welcome back, {userName}!</p>
+                )}
+                <form onSubmit={handleSubmit} className="space-y-4">
+                    {!formData.isLogin && (
+                        <>
                             <label className="block">
-                                Confirm Password:
+                                Name:
                                 <input
-                                    type="password"
-                                    name="confirmPassword"
-                                    value={formData.confirmPassword}
+                                    type="text"
+                                    name="name"
+                                    value={formData.name}
                                     onChange={handleChange}
                                     className="w-full mt-1 p-2 border border-gray-300 rounded"
                                     required
                                 />
                             </label>
-                        )}
-                        {formData.isLogin && !formData.forgotPassword && (
-                            <>
-                                <button
-                                    type="button"
-                                    className="text-blue-500 underline"
-                                    onClick={handleForgotPassword}
-                                >
-                                    Forgot Password?
-                                </button>
-                                <button type="submit" className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600">
-                                    Login
-                                </button>
-                            </>
-                        )}
-                    </form>
-                ) : formData.forgotPassword ? (
-                    <ForgotModel closeForgotPasswordModel={() => setShowForgotModel(false)} />
-                ) : (
-                    <div className="space-y-4">
+                            <label className="block">
+                                Phone:
+                                <input
+                                    type="text"
+                                    name="phone"
+                                    value={formData.phone}
+                                    onChange={handleChange}
+                                    className="w-full mt-1 p-2 border border-gray-300 rounded"
+                                    required
+                                />
+                            </label>
+                        </>
+                    )}
+                    <label className="block">
+                        Email:
+                        <input
+                            type="email"
+                            name="email"
+                            value={formData.email}
+                            onChange={handleChange}
+                            className="w-full mt-1 p-2 border border-gray-300 rounded"
+                            required
+                        />
+                    </label>
+                    <label className="block">
+                        Password:
+                        <input
+                            type="password"
+                            name="password"
+                            value={formData.password}
+                            onChange={handleChange}
+                            className="w-full mt-1 p-2 border border-gray-300 rounded"
+                            required
+                        />
+                    </label>
+                    {!formData.isLogin && (
                         <label className="block">
-                            Enter OTP:
+                            Confirm Password:
                             <input
-                                type="text"
-                                name="otp"
-                                value={formData.otp}
+                                type="password"
+                                name="confirmPassword"
+                                value={formData.confirmPassword}
                                 onChange={handleChange}
                                 className="w-full mt-1 p-2 border border-gray-300 rounded"
                                 required
                             />
                         </label>
+                    )}
+                    {formData.isLogin && (
                         <button
-                            onClick={verifyOTP}
-                            className="w-full bg-green-500 text-white py-2 rounded hover:bg-green-600"
+                            type="button"
+                            className="text-blue-500 underline"
+                            onClick={handleForgotPassword}
                         >
-                            Verify OTP
+                            Forgot Password?
                         </button>
-                    </div>
-                )}
+                    )}
+                    <button type="submit" className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600">
+                        {formData.isLogin ? 'Login' : 'Signup'}
+                    </button>
+                </form>
                 <p className="text-center mt-4">
                     {formData.isLogin ? 'New user? ' : 'Already have an account? '}
                     <button
@@ -245,9 +196,6 @@ function ShowModel({ closeModel }) {
                     </button>
                 </p>
             </div>
-            {showForgotModel && (
-                <ForgotModel closeForgotPasswordModel={() => setShowForgotModel(false)} />
-            )}
         </div>
     );
 }

@@ -14,9 +14,12 @@ import History from './pages/history/History';
 import { CartProvider } from 'react-use-cart';
 import ShowModel from './component/model/ShowModel';
 import Aboutus from './pages/About/Aboutus';
-import Contacts from './pages/Contactus/Contacts';
 import ShowAddressModel from './component/model/ShowAddressModel';
 import ResetPassword from './component/ResetPassword';
+import FakePayment from './pages/payment/FakePayment';
+import OrderConfirmation from './pages/payment/OrderConfirmation';
+import ContactUs from './pages/contactuspage/ContactUs';
+import ReturnProductForm from './pages/return/ReturnProductForm';
 
 function App() {
   const [isLoginModelOpen, setIsLoginModelOpen] = React.useState(false);
@@ -39,9 +42,13 @@ function App() {
             <Route path="/cart" element={<Cart openLoginModel={openLoginModel} openAddressModel={openAddressModel} />} />
             <Route path="/order-history" element={<History />} />
             <Route path="/aboutus" element={<Aboutus />} />
-            <Route path="/contacts" element={<Contacts />} />
+            <Route path="/contactus" element={<ContactUs />} />
+
             <Route path="/address" element={<Address openAddressModel={openAddressModel} />} />
             <Route path="/reset/:token" element={<ResetPassword />} />
+            <Route path="/fake-payment" element={< FakePayment/> }/>
+            <Route path="/order-confirmation" element={<OrderConfirmation/>} />
+            <Route path="/returnProduct" element={<ReturnProductForm/>} />
           </Routes>
           {isLoginModelOpen && <ShowModel closeModel={closeLoginModel} />}
           {isAddressModelOpen && <ShowAddressModel closeModel={closeAddressModel} />}
