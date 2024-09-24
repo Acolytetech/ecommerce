@@ -90,13 +90,13 @@ const Topproduct = () => {
                 <p className="text-2xl">
                   <span className='text-rose-600 font-bold text-2xl'>Price :</span> {product.price} ₹
                 </p>
-                <p className="text-1xl pt-2 font-bold">
-                  <span className='text-black-400'>Rating : </span>
-                  <div className="mt-2">
+                <p className="text-1xl font-bold">
+                  <div className="">
                     {renderStars(rating)}
+                <Link to={`/product/${product._id}`} className="mt-4 bg-rose-500 text-white px-4 py-2 rounded hover:bg-rose-600">Add to Cart</Link>
+
                   </div>
                 </p>
-                <Link to={`/product/${product._id}`} className="mt-4 bg-rose-500 text-white px-4 py-2 rounded hover:bg-rose-600">Add to Cart</Link>
               </div>
             </div>
           );

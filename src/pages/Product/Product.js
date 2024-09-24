@@ -74,7 +74,7 @@ const Product = () => {
         </Slider>
       </div>
 
-      <div className='m-auto text-center p-10 mt-10'>
+      <div className='m-auto text-center p-10 mt-20'>
         <h1 className='text-2xl text-center font-bold text-black'>Our Products</h1>
         <p className='text-green-700 font-semibold text-center mt-2'>Brighten Your Home, Simplify Your Life</p>
       </div>
@@ -99,7 +99,7 @@ const Product = () => {
                   {console.log(rating)}
                 </div>
 
-                <Link to={`/product/${product._id}`} className="mt-4 bg-rose-500 text-white px-4 py-2 rounded hover:bg-rose-600">View Details</Link>
+                <Link to={`/product/${product._id}`} className="mt-4 bg-rose-500 text-white px-4 py-2 rounded hover:bg-rose-600">Add to Cart</Link>
               </div>
             </div>
           );

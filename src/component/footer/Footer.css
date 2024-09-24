@@ -66,7 +66,7 @@
     color: #555;
   }
   .footer-social{
-    margin-top: -50px;
+    margin-top: -100px;
   }
   
   .footer-bottom {
@@ -124,10 +124,16 @@
     }
   
     .footer-social{
-      margin-top: 45px;
+      margin-top: 100px;
     }
     .footer-social ,.footer-links{
       margin-left: 100px;
+    }
+    .footer-links{
+      margin-top: 100px;
+    }
+    .footer-links ul li{
+      margin-top: 20px;
     }
   }
   @media (max-width:500px) {

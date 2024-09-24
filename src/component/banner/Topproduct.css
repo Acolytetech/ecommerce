@@ -43,7 +43,7 @@
   /* Product card styling */
   .product-card {
     width: 105%;
-    height:500px;
+    height:400px;
     background-color: #ffffff; /* White */
     /* border: 1px solid #e5e7eb; Tailwind's gray-200 */
     border-radius: 8px;
@@ -214,5 +214,8 @@
   }
     
   }
+
+  /* ...... */
+  
 
   

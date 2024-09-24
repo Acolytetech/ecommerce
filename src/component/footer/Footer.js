@@ -11,9 +11,8 @@ const Footer = () => {
                 {/* Logo */}
                 <div className="footer-logo">
                     <img src={logo} alt="Logo" className="logo-img" />
-                    <p>
+          <p style={{width:'250px'}}>Maa Khodal Industrial Area -3, Plot No. 10B, 11, Ravki Makhavad Road, Rajkot, Gujarat - 360004</p>
                     
-                    </p>
                 </div>
 
                 {/* Quick Links */}

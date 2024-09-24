@@ -46,7 +46,7 @@ const ProductDetails = () => {
 
     console.log('Fetching product details for productId:', productId);
 
-    axios.get(`https://jd-products1.onrender.com/products${productId}`)
+    axios.get(`https://jd-products1.onrender.com/products/${productId}`)
       .then(response => {
         const data = response.data;
         console.log('API response:', data);
